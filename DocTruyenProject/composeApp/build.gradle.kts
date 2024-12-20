@@ -9,6 +9,9 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+
+    id("kotlin-parcelize")
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 kotlin {
@@ -29,7 +32,7 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     jvm("desktop")
     
     @OptIn(ExperimentalWasmDsl::class)
@@ -58,7 +61,22 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
+            implementation(libs.timber)
+
+            // Add Ktor dependencies
+            implementation(libs.ktor.client.okhttp)
+
+            implementation(libs.kotlinx.coroutines.android)
+
+            implementation("io.insert-koin:koin-android:3.5.0")
         }
+
+        iosMain.dependencies {
+            // Add Ktor dependencies
+            implementation(libs.ktor.client.darwin)
+        }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -74,7 +92,23 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.androidx.navigation.compose)
+
+            // Add Ktor dependencies
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.logging)
+
+            implementation(libs.kotlinx.coroutines.core)
+
+            // Koin
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.composeVM)
+
+            implementation(libs.qdsfdhvh.image.loader)
         }
+
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
