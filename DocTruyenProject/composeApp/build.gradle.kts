@@ -34,7 +34,8 @@ kotlin {
     }
 
     jvm("desktop")
-    
+
+    // WASM target
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "composeApp"
@@ -66,6 +67,7 @@ kotlin {
 
             // Add Ktor dependencies
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.ktor.client.logging)
 
             implementation(libs.kotlinx.coroutines.android)
 
@@ -75,6 +77,7 @@ kotlin {
         iosMain.dependencies {
             // Add Ktor dependencies
             implementation(libs.ktor.client.darwin)
+            implementation(libs.ktor.client.logging)
         }
 
         commonMain.dependencies {
@@ -97,7 +100,9 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
-            implementation(libs.ktor.client.logging)
+
+            // Don't use 'libs.ktor.client.logging' on Wasm JS
+            // implementation(libs.ktor.client.logging)
 
             implementation(libs.kotlinx.coroutines.core)
 
@@ -112,6 +117,7 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.ktor.client.logging)
         }
     }
 }
