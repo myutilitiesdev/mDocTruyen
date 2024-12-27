@@ -10,7 +10,6 @@ import com.foryou.androiddoctruyen.datasource.remote.model.HomeModel
 import com.foryou.androiddoctruyen.datasource.remote.story.StoryRepository
 import com.foryou.androiddoctruyen.utils.UiState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -63,7 +62,7 @@ class HomeVM(
             _isLoading.value = true
         }
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Default) {
             val categoryAsync = async { storyRepository.getCategories("") }
             val categoryResult = categoryAsync.await()
 
