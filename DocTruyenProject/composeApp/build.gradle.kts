@@ -35,6 +35,12 @@ kotlin {
 
     jvm("desktop")
 
+    js(IR) {
+        moduleName = "composeApp"
+        browser()
+        binaries.executable()
+    }
+
     // WASM target
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
@@ -57,6 +63,10 @@ kotlin {
     }
     
     sourceSets {
+//        all {
+//            languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
+//        }
+
         val desktopMain by getting
         
         androidMain.dependencies {
@@ -81,9 +91,13 @@ kotlin {
         }
 
         commonMain.dependencies {
+            api(libs.decompose.router)
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
+
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -112,6 +126,11 @@ kotlin {
             implementation(libs.koin.composeVM)
 
             implementation(libs.qdsfdhvh.image.loader)
+
+            implementation(libs.molecule.runtime)
+            implementation(libs.compose.multiplatform.material3.windowsizeclass)
+            implementation(libs.decompose)
+            implementation(libs.decompose.compose)
         }
 
         desktopMain.dependencies {
@@ -120,8 +139,20 @@ kotlin {
             implementation(libs.ktor.client.logging)
         }
 
+        jsMain.dependencies {
+            implementation(libs.ktor.client.js)
+
+            implementation(libs.decompose)
+            implementation(libs.decompose.compose)
+            implementation(libs.decompose.router)
+        }
+
         wasmJsMain.dependencies {
             implementation(libs.ktor.client.js)
+
+            implementation(libs.decompose)
+            implementation(libs.decompose.compose)
+            implementation(libs.decompose.router)
         }
     }
 }
