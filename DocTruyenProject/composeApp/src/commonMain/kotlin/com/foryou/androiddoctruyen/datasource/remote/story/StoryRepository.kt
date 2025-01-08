@@ -43,4 +43,21 @@ class StoryRepository(private val httpClient: HttpClient) : IStoryRepository {
         }
         return emptyList()
     }
+
+    override suspend fun getHotStories(filter: String): Flow<UiState<List<StoryModel>>> = flow {
+        emit(UiState.Loading)
+
+        val httpResponse = httpClient.get {
+            url {
+                path("/stories")
+                parameter("filter", filter)
+            }
+        }
+
+        try {
+            emit(UiState.Success(httpResponse.body()))
+        } catch (error: Exception) {
+            emit(UiState.Error(error.toString()))
+        }
+    }
 }

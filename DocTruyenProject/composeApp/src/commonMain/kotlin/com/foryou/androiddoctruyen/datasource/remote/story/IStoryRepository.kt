@@ -8,4 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface IStoryRepository {
     suspend fun getCategories(filter: String): Flow<UiState<List<CategoryModel>>>
     suspend fun getStoryBasedCategory(storyId: String): List<StoryModel>
+    suspend fun getHotStories(filter: String): Flow<UiState<List<StoryModel>>>
 }

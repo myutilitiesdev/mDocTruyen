@@ -22,7 +22,7 @@ fun NavigationHost(navHostController: NavHostController) {
         }
 
         composable(route = NavigationScreen.HotScreen.route) {
-            HotScreen()
+            HotScreen(navHostController)
         }
 
         composable(route = NavigationScreen.ProfileScreen.route) {

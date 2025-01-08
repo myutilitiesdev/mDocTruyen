@@ -4,4 +4,6 @@
     <string name="tab_hot">Hot</string>
     <string name="tab_profile">Profile</string>
     <string name="story_detail">Story Detail</string>
+    <string name="error_info">Có lỗi xảy ra, xin vui lòng thử lại!</string>
+    <string name="error_refresh">Tải lại dữ liệu</string>
 </resources>
