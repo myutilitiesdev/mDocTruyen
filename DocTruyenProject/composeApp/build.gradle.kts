@@ -16,7 +16,6 @@ plugins {
 
 kotlin {
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
@@ -63,10 +62,6 @@ kotlin {
     }
     
     sourceSets {
-//        all {
-//            languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
-//        }
-
         val desktopMain by getting
         
         androidMain.dependencies {
@@ -77,17 +72,15 @@ kotlin {
 
             // Add Ktor dependencies
             implementation(libs.ktor.client.okhttp)
-            implementation(libs.ktor.client.logging)
 
             implementation(libs.kotlinx.coroutines.android)
 
-            implementation("io.insert-koin:koin-android:3.5.0")
+            implementation(libs.koin.android)
         }
 
         iosMain.dependencies {
             // Add Ktor dependencies
             implementation(libs.ktor.client.darwin)
-            implementation(libs.ktor.client.logging)
         }
 
         commonMain.dependencies {
@@ -136,20 +129,15 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.ktor.client.logging)
         }
 
         jsMain.dependencies {
-            implementation(libs.ktor.client.js)
-
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
             implementation(libs.decompose.router)
         }
 
         wasmJsMain.dependencies {
-            implementation(libs.ktor.client.js)
-
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
             implementation(libs.decompose.router)
